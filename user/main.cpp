@@ -13,8 +13,6 @@
 #include <fstream>
 #include <sstream>
 #include "gitparams.h"
-#include <thread>
-#include <windows.h>
 
 
 // test autoRelease main ver increment
@@ -73,23 +71,6 @@ bool GameVersionCheck() {
 		LOG_DEBUG(ss.str()); \
 	} while (0);
 
-void writeIsInGame() {
-	while(true) {
-		std::ofstream file;
-		file.open("isInGame.txt");
-
-		// bool isInGameValue = IsInGame();
-		if(true) {
-			file << 1;
-		} else {
-			file << 0;
-		}
-
-		file.close();
-		Sleep(1000);
-	}
-}
-
 void Run(LPVOID lpParam) {
 
 #if _DEBUG
@@ -146,7 +127,6 @@ void Run(LPVOID lpParam) {
 
 	Game::scanGameFunctions();
 	DetourInitilization();
-	std::thread inGameChecker(writeIsInGame);
 #if _DEBUG
 	managedThreadAttached.detach();
 	DWORD dwWaitResult = WaitForSingleObject(hUnloadEvent, INFINITE);
