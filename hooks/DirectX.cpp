@@ -20,6 +20,7 @@
 #include "game.h"
 #include "console.hpp"
 #include "profiler.h"
+#include <windows.h>
 
 #include <future>
 
@@ -272,6 +273,21 @@ static void RebuildFont() {
     io.Fonts->Build();
 }
 
+void writeIsInGame() {
+    std::ofstream file;
+    file.open("isInGame.txt");
+
+    bool isInGameValue = IsInGame();
+    if(isInGameValue) {
+        file << 1;
+    } else {
+        file << 0;
+    }
+
+    file.close();
+    Sleep(1000);
+}
+
 std::once_flag init_d3d;
 HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags) {
     std::call_once(init_d3d, [&] {
@@ -327,6 +343,7 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
+    writeIsInGame();
     if (!State.PanicMode && State.ShowMenu)
     {
         ImGuiRenderer::Submit([]() { Menu::Render(); });

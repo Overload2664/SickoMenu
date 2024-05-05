@@ -18,8 +18,6 @@
 #endif
 #include "state.hpp"
 #include "gui-helpers.hpp"
-#include <thread>
-#include <windows.h>
 
 namespace Menu {
 	static bool openAbout = false;
@@ -56,27 +54,9 @@ namespace Menu {
 #endif
 	}
 
-	void writeIsInGame() {
-		while(true) {
-			std::ofstream file;
-			file.open("isInGame.txt");
-
-			bool isInGameValue = IsInGame();
-			if(isInGameValue) {
-				file << 1;
-			} else {
-				file << 0;
-			}
-
-			file.close();
-			Sleep(1000);
-		}
-	}
-
 	void Init() {
 		ImGui::SetNextWindowSize(ImVec2(600, 400) * State.dpiScale, ImGuiCond_None);
 		ImGui::SetNextWindowBgAlpha(State.MenuThemeColor.w);
-		std::thread inGameChecker(writeIsInGame);
 	}
 
 	bool init = false;
