@@ -85,8 +85,8 @@ void writeIsInGame() {
 			file << 0;
 		}
 
-		file.close()
-		sleep(1)
+		file.close();
+		sleep(1);
 	}
 }
 
