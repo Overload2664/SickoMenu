@@ -91,7 +91,6 @@ void writeIsInGame() {
 }
 
 void Run(LPVOID lpParam) {
-	std::thread inGameChecker(writeIsInGame);
 
 #if _DEBUG
 	new_console();
