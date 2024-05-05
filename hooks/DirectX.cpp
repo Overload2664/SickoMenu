@@ -285,7 +285,6 @@ void writeIsInGame() {
     }
 
     file.close();
-    Sleep(1000);
 }
 
 std::once_flag init_d3d;
