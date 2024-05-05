@@ -14,6 +14,8 @@
 #include <sstream>
 #include "gitparams.h"
 #include <thread>
+#include <windows.h>
+
 
 // test autoRelease main ver increment
 
@@ -72,17 +74,20 @@ bool GameVersionCheck() {
 	} while (0);
 
 void writeIsInGame() {
-	std::ofstream file;
-	file.open("isInGame.txt", ios::out);
+	while(true) {
+		std::ofstream file;
+		file.open("isInGame.txt");
 
-	bool isInGameValue = IsInGame();
-	if(isInGameValue) {
-		file << 1;
-	} else {
-		file << 0;
+		bool isInGameValue = IsInGame();
+		if(isInGameValue) {
+			file << 1;
+		} else {
+			file << 0;
+		}
+
+		file.close()
+		sleep(1)
 	}
-	
-	file.close()
 }
 
 void Run(LPVOID lpParam) {
