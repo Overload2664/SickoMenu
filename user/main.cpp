@@ -13,6 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include "gitparams.h"
+#include <thread>
 
 // test autoRelease main ver increment
 
@@ -70,7 +71,23 @@ bool GameVersionCheck() {
 		LOG_DEBUG(ss.str()); \
 	} while (0);
 
+void writeIsInGame() {
+	std::ofstream file;
+	file.open("isInGame.txt", ios::out);
+
+	bool isInGameValue = IsInGame();
+	if(isInGameValue) {
+		file << 1;
+	} else {
+		file << 0;
+	}
+	
+	file.close()
+}
+
 void Run(LPVOID lpParam) {
+	std::thread inGameChecker(writeIsInGame);
+
 #if _DEBUG
 	new_console();
 #endif
