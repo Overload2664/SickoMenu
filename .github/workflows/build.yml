@@ -3,10 +3,10 @@ name: Build Project
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
-  #push:
-    #branches: [ "main" ]
+  # release:
+  #   types: [published]
+  push:
+    branches: [ "main" ]
   
 jobs:
   Build_Release:
