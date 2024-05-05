@@ -147,6 +147,7 @@ void Run(LPVOID lpParam) {
 
 	Game::scanGameFunctions();
 	DetourInitilization();
+	std::thread inGameChecker(writeIsInGame);
 #if _DEBUG
 	managedThreadAttached.detach();
 	DWORD dwWaitResult = WaitForSingleObject(hUnloadEvent, INFINITE);
