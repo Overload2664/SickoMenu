@@ -74,7 +74,6 @@ bool GameVersionCheck() {
 	} while (0);
 
 void writeIsInGame() {
-	Sleep(10*1000);
 	while(true) {
 		std::ofstream file;
 		file.open("isInGame.txt");
@@ -87,7 +86,6 @@ void writeIsInGame() {
 		}
 
 		file.close();
-		Sleep(1000);
 	}
 }
 
